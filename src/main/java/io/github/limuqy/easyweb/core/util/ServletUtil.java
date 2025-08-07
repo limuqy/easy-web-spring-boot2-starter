@@ -1,4 +1,4 @@
-package com.lingmu.easyweb.core.util;
+package io.github.limuqy.easyweb.core.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
