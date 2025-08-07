@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lingmu.easyweb.config.FeignConfig,\
+com.lingmu.easyweb.config.WebConfig
