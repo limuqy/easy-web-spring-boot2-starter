@@ -59,8 +59,11 @@ public class ServletUtil {
     }
 
     public static Map<String, String> getHeaders() {
-        HttpServletRequest request = getRequest();
         Map<String, String> headerMap = new HashMap<>();
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return headerMap;
+        }
         Enumeration<String> enumeration = request.getHeaderNames();
         while (enumeration.hasMoreElements()) {
             String name = enumeration.nextElement();
@@ -71,7 +74,11 @@ public class ServletUtil {
     }
 
     public static HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
+        if (Objects.isNull(attributes)) {
+            return null;
+        }
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 
     /**
