@@ -8,8 +8,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.InetAddress;
-import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Slf4j
@@ -96,21 +96,17 @@ public class ServletUtil {
 
 
     /**
-     * 公共处理response
+     * excel导出公共处理response
      *
      * @param fileName 导出文件名称
      * @param response http响应
      */
-    public static void processResponse(String fileName, HttpServletResponse response) {
+    public static void setExcelResponse(String fileName, HttpServletResponse response) {
         fileName = fileName.endsWith(SUFFIX_XLSX) ? fileName : fileName + SUFFIX_XLSX;
-        try {
-            // 这里URLEncoder.encode可以防止中文乱码
-            String fileTitle = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
-            response.setHeader("content-disposition", "attachment; filename*=utf-8''" + fileTitle);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        // 这里URLEncoder.encode可以防止中文乱码
+        String fileTitle = URLUtil.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+        response.setHeader("content-disposition", "attachment; filename*=utf-8''" + fileTitle);
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
         // 设置二进制传输文件
