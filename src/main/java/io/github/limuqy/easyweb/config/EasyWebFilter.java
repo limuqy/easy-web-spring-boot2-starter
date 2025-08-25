@@ -1,5 +1,7 @@
 package io.github.limuqy.easyweb.config;
 
+import io.github.limuqy.easyweb.cache.util.DictUtil;
+import io.github.limuqy.easyweb.core.context.AppContext;
 import io.github.limuqy.easyweb.core.util.TraceIdUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
@@ -11,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class TraceIdFilter extends OncePerRequestFilter {
-
+public class EasyWebFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -26,6 +27,8 @@ public class TraceIdFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();
+            DictUtil.clear();
+            AppContext.clear();
         }
     }
 }
