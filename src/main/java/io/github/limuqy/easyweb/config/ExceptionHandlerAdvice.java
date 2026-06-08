@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class ExceptionHandlerAdvice {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${spring.application.name}")
+    @Value("${spring.application.name:}")
     private String serverName;
 
     @ExceptionHandler(value = Exception.class)
@@ -40,13 +40,13 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(value = IllegalArgumentException.class)
     public RestResponse<?> errorHandler(IllegalArgumentException e) {
         log.error("非法参数错误：", e);
-        return RestResponse.fail(e.getMessage());
+        return RestResponse.fail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public RestResponse<?> accessHandler(AccessDeniedException e) {
         log.error("拒绝访问：", e);
-        return RestResponse.fail(HttpStatus.UNAUTHORIZED, "auth.error");
+        return RestResponse.fail(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
     @ExceptionHandler(value = BusinessException.class)

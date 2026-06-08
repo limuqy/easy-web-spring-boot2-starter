@@ -38,14 +38,14 @@
     </scm>
 
     <properties>
-        <revision>1.1.0-beta-1</revision>
+        <revision>1.1.1</revision>
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <openfeign.version>3.1.9</openfeign.version>
         <springboot.version>2.7.18</springboot.version>
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus.version>3.5.8</mybatis-plus.version>
     </properties>
 
     <dependencyManagement>
