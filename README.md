@@ -24,13 +24,3 @@ implementation 'io.github.limuqy:easy-web-spring-boot2-starter:${latest version}
 implementation group: 'io.github.limuqy', name: 'easy-web-spring-boot2-starter', version: '${latest version}'
 ~~~
 
-## 文档
-
-~~~Java
-public class TypingCode {
-    public static void main(String[] args) {
-        System.out.println("正在完善...");
-    }
-}
-~~~
-

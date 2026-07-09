@@ -17,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.lang.reflect.Method;
 import java.nio.file.AccessDeniedException;
@@ -81,6 +82,12 @@ public class ExceptionHandlerAdvice {
     public RestResponse<?> errorHandler(RowIdException e) {
         log.error("RowId处理异常：", e);
         return RestResponse.fail(e.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = NoHandlerFoundException.class)
+    public RestResponse<?> errorHandler(NoHandlerFoundException e) {
+        log.error("请求路径不存在：{}", e.getRequestURL());
+        return RestResponse.fail(HttpStatus.NOT_FOUND, "请求路径不存在：" + e.getRequestURL());
     }
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
